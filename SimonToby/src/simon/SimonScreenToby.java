@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guiPractice.components.Action;
+import guiPractice.components.Button;
 import guiPractice.components.ClickableScreen;
 import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;
@@ -12,7 +13,7 @@ import guiPractice.components.Visible;
 public class SimonScreenToby extends ClickableScreen implements Runnable {
 	
 	private TextLabel label;
-	private ButtonInterfaceToby[] button;
+	private ButtonInterfaceToby[] buttons;
 	private ProgressInterfaceToby progress;
 	private ArrayList<MoveInterfaceToby> sequence;
 	
@@ -78,12 +79,13 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	
 	private MoveInterfaceToby randomMove() {
 		//code that randomly selects a ButtonInterface
-		int b = (int)(Math.random()*button.length);
+		int b = (int)(Math.random()*buttons.length);
 		lastSelectedButton = b;
 		while(b == lastSelectedButton){
-			b = (int)(Math.random()*button.length);
+			b = (int)(Math.random()*buttons.length);
 		}
-		return getMove(b);
+		
+		return getMove(buttons[b]);
 	}
 
 	/**
@@ -91,19 +93,19 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	*/
 	private ProgressInterfaceToby getProgress() {
 		// TODO Auto-generated method stub
-		return null; 
+		return progress; 
 	}
 
 	private void addButtons() {
 		Color[] colors = {Color.red, Color.blue, Color.orange, Color.yellow, Color.green};
 		int numberOfButtons = 5;
-		button = new ButtonInterfaceToby[numberOfButtons];
+		buttons = new ButtonInterfaceToby[numberOfButtons];
 		for(int i = 0; i < numberOfButtons; i++ ){
-			button[i] = getAButton();
-			button[i].setColor(colors[i]);
+			buttons[i] = getAButton();
+			buttons[i].setColor(colors[i]);
 			final ButtonInterfaceToby b = getAButton();
 			
-			button[i].setAction(new Action(){
+			buttons[i].setAction(new Action(){
 				public void act(){
 					
 					Thread blink = new Thread(new Runnable(){
@@ -131,10 +133,15 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 					}
 				}
 			});
-			viewObjects.add(button[i]);
+			viewObjects.add(buttons[i]);
 		}
 	}
 	
+	private ButtonInterfaceToby getAButton() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void gameOver() {
 		// TODO Auto-generated method stub
 	}
