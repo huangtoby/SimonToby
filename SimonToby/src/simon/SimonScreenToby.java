@@ -80,12 +80,12 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	private MoveInterfaceToby randomMove() {
 		//code that randomly selects a ButtonInterface
 		int b = (int)(Math.random()*buttons.length);
-		lastSelectedButton = b;
 		while(b == lastSelectedButton){
 			b = (int)(Math.random()*buttons.length);
 		}
+		lastSelectedButton = b;
 
-		return getMove(buttons[b]);
+		return new Move(buttons[b]);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	 */
 	private ProgressInterfaceToby getProgress() {
 		// TODO Auto-generated method stub
-		return progress; 
+		return new ProgressMax(); 
 	}
 
 	private void addButtons() {
@@ -139,7 +139,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 
 	private ButtonInterfaceToby getAButton() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ButtonMax();
 	}
 
 	private void gameOver() {
