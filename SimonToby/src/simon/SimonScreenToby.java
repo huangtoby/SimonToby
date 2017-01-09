@@ -11,12 +11,12 @@ import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;
 
 public class SimonScreenToby extends ClickableScreen implements Runnable {
-	
+
 	private TextLabel label;
 	private ButtonInterfaceToby[] buttons;
 	private ProgressInterfaceToby progress;
 	private ArrayList<MoveInterfaceToby> sequence;
-	
+
 	int roundNumber;
 	boolean acceptingInput;
 	int sequenceIndex;
@@ -76,7 +76,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		viewObjects.add(progress);
 		viewObjects.add(label);	
 	}
-	
+
 	private MoveInterfaceToby randomMove() {
 		//code that randomly selects a ButtonInterface
 		int b = (int)(Math.random()*buttons.length);
@@ -84,13 +84,13 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		while(b == lastSelectedButton){
 			b = (int)(Math.random()*buttons.length);
 		}
-		
+
 		return getMove(buttons[b]);
 	}
 
 	/**
 	Placeholder until partner finishes implementation of ProgressInterface
-	*/
+	 */
 	private ProgressInterfaceToby getProgress() {
 		// TODO Auto-generated method stub
 		return progress; 
@@ -104,10 +104,10 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			buttons[i] = getAButton();
 			buttons[i].setColor(colors[i]);
 			final ButtonInterfaceToby b = getAButton();
-			
+
 			buttons[i].setAction(new Action(){
 				public void act(){
-					
+
 					Thread blink = new Thread(new Runnable(){
 						public void run(){
 							b.highlight();
@@ -120,7 +120,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 						}
 					});
 					blink.start();
-					
+
 					if(acceptingInput && b == sequence.get(sequenceIndex).getButton()){
 						sequenceIndex++;
 					}else if(acceptingInput){
@@ -136,7 +136,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			viewObjects.add(buttons[i]);
 		}
 	}
-	
+
 	private ButtonInterfaceToby getAButton() {
 		// TODO Auto-generated method stub
 		return null;
@@ -145,7 +145,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	private void gameOver() {
 		// TODO Auto-generated method stub
 	}
-	
+
 	private void changeText(String string) {
 		try{
 			label.setText(string);
