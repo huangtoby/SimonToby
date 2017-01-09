@@ -74,11 +74,9 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		roundNumber = 0;
 		viewObjects.add(progress);
 		viewObjects.add(label);	
-
 	}
 	
 	private MoveInterfaceToby randomMove() {
-		ButtonInterfaceToby b;
 		//code that randomly selects a ButtonInterface
 		int b = (int)(Math.random()*button.length);
 		lastSelectedButton = b;
