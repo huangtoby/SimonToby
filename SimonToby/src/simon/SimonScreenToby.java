@@ -64,7 +64,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
-		addButtons();
+		addButtons(viewObjects);
 		progress = getProgress();
 		label = new TextLabel(130,230,300,40,"Let's play Simon!");
 		sequence = new ArrayList<MoveInterfaceToby>();
@@ -92,7 +92,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		return new ProgressMax(); 
 	}
 
-	private void addButtons() {
+	private void addButtons(List<Visible> viewObjects) {
 		Color[] colors = {Color.red, Color.blue, Color.orange, Color.yellow, Color.green};
 		int numberOfButtons = 5;
 		buttons = new ButtonInterfaceToby[numberOfButtons];
@@ -119,9 +119,9 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 					});
 					blink.start();
 
-					if(acceptingInput && b == sequence.get(sequenceIndex).getButton()){
+					if(b == sequence.get(sequenceIndex).getButton()){
 						sequenceIndex++;
-					}else if(acceptingInput){
+					}else{
 						gameOver();
 						return;
 					}

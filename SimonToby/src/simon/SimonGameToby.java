@@ -4,8 +4,7 @@ import guiPractice.GUIApplication;
 
 public class SimonGameToby extends GUIApplication {
 
-	public SimonGameToby(int width, int height) {
-		super(width, height);
+	public SimonGameToby() {
 	}
 	
 	protected void initScreen() {
@@ -15,7 +14,7 @@ public class SimonGameToby extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		SimonGameToby game = new SimonGameToby(800,500);
+		SimonGameToby game = new SimonGameToby();
 		Thread app = new Thread(game);
 		app.start();
 	}
