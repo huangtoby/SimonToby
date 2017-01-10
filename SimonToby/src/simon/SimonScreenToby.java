@@ -102,7 +102,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(numberOfButtons))));
 			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(numberOfButtons))));
 			final ButtonInterfaceToby b = buttons[i];
-
+			b.dim();
 			buttons[i].setAction(new Action(){
 				public void act(){
 
@@ -131,16 +131,16 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 					}
 				}
 			});
-			buttons[i] = getAButton();
+			viewObjects.add(buttons[i]);
 		}
-	}
+	}	
 
 	private ButtonInterfaceToby getAButton() {
 		return new ButtonMax();
 	}
 
 	private void gameOver() {
-		// TODO Auto-generated method stub
+		progress.gameOver();
 	}
 
 	private void changeText(String string) {

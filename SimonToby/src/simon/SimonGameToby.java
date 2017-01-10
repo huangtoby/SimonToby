@@ -4,11 +4,10 @@ import guiPractice.GUIApplication;
 
 public class SimonGameToby extends GUIApplication {
 
-	public SimonGameToby() {
-		// TODO Auto-generated constructor stub
+	public SimonGameToby(int width, int height) {
+		super(width, height);
 	}
-
-	@Override
+	
 	protected void initScreen() {
 		SimonScreenToby simons = new SimonScreenToby(getWidth(), getHeight());
 		setScreen(simons);
@@ -16,10 +15,9 @@ public class SimonGameToby extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		SimonGameToby game = new SimonGameToby();
+		SimonGameToby game = new SimonGameToby(800,500);
 		Thread app = new Thread(game);
 		app.start();
-
 	}
 
 }
