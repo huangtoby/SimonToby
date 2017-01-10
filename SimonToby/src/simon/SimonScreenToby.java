@@ -88,11 +88,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		return new Move(buttons[b]);
 	}
 
-	/**
-	Placeholder until partner finishes implementation of ProgressInterface
-	 */
 	private ProgressInterfaceToby getProgress() {
-		// TODO Auto-generated method stub
 		return new ProgressMax(); 
 	}
 
@@ -103,7 +99,9 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		for(int i = 0; i < numberOfButtons; i++ ){
 			buttons[i] = getAButton();
 			buttons[i].setColor(colors[i]);
-			final ButtonInterfaceToby b = getAButton();
+			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(numberOfButtons))));
+			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(numberOfButtons))));
+			final ButtonInterfaceToby b = buttons[i];
 
 			buttons[i].setAction(new Action(){
 				public void act(){
@@ -133,12 +131,11 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 					}
 				}
 			});
-			viewObjects.add(buttons[i]);
+			buttons[i] = getAButton();
 		}
 	}
 
 	private ButtonInterfaceToby getAButton() {
-		// TODO Auto-generated method stub
 		return new ButtonMax();
 	}
 

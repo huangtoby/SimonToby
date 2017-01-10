@@ -11,4 +11,6 @@ public interface ButtonInterfaceToby extends Clickable {
 	void setAction(Action a);
 	void highlight();
 	void dim();
+	void setX(int i);
+	void setY(int i);
 }
