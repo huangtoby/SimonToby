@@ -5,6 +5,7 @@ import guiPractice.GUIApplication;
 public class SimonGameToby extends GUIApplication {
 
 	public SimonGameToby() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	protected void initScreen() {

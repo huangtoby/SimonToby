@@ -8,9 +8,9 @@ import guiPractice.components.Clickable;
 public interface ButtonInterfaceToby extends Clickable {
 	
 	void setColor(Color color);
-	void setAction(Action a);
+	void setAction(Action action);
 	void highlight();
 	void dim();
 	void setX(int i);
-	void setY(int i);
+	void setY(int i);	
 }

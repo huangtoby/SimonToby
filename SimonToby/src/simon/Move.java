@@ -8,9 +8,7 @@ public class Move implements MoveInterfaceToby {
 		this.b = b;
 	}
 	
-	@Override
 	public ButtonInterfaceToby getButton() {
-		// TODO Auto-generated method stub
 		return b;
 	}
 

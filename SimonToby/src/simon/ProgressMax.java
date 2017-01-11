@@ -17,27 +17,21 @@ public class ProgressMax extends Component implements ProgressInterfaceToby {
 		super(60,60,WIDTH,HEIGHT);
 	}
 	
-	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
 		gameOver = true;
 		update();
 	}
 
-	@Override
 	public void setRound(int roundNumber) {
-		// TODO Auto-generated method stub
 		round = "Round #" + roundNumber;
 		update();
 	}
 
-	@Override
 	public void setSequenceLength(int size) {
-		// TODO Auto-generated method stub
 		sequence = "Sequence Length: " + size;
+		update();
 	}
 
-	@Override
 	public void update(Graphics2D arg0) {
 		arg0.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		FontMetrics fm = arg0.getFontMetrics();

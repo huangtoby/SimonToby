@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guiPractice.components.Action;
-import guiPractice.components.Button;
 import guiPractice.components.ClickableScreen;
 import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;
@@ -29,7 +28,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	}
 
 	public void run() {
-		label.setText("");
+		changeText("");
 		nextRound();
 	}
 
@@ -39,10 +38,10 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		progress.setRound(roundNumber);
 		sequence.add(randomMove());
 		progress.setSequenceLength(sequence.size());
-		changeText("Simon's turn.");
+		changeText("Simon.");
 		label.setText("");
 		playSequence();
-		changeText("Your turn.");
+		changeText("You.");
 		label.setText("");
 		acceptingInput = true;
 		sequenceIndex = 0;
@@ -66,26 +65,27 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 	public void initAllObjects(List<Visible> viewObjects) {
 		addButtons(viewObjects);
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
+		label = new TextLabel(130,230,300,40,"Play Simon");
 		sequence = new ArrayList<MoveInterfaceToby>();
-		//add 2 moves to start
+		
 		lastSelectedButton = -1;
 		sequence.add(randomMove());
 		sequence.add(randomMove());
 		roundNumber = 0;
+
 		viewObjects.add(progress);
-		viewObjects.add(label);	
+		viewObjects.add(label);
 	}
 
 	private MoveInterfaceToby randomMove() {
 		//code that randomly selects a ButtonInterface
-		int b = (int)(Math.random()*buttons.length);
-		while(b == lastSelectedButton){
-			b = (int)(Math.random()*buttons.length);
+		int a = (int)(Math.random()*buttons.length);
+		while(a == lastSelectedButton){
+			a = (int)(Math.random()*buttons.length);
 		}
-		lastSelectedButton = b;
+		lastSelectedButton = a;
 
-		return new Move(buttons[b]);
+		return new Move(buttons[a]);
 	}
 
 	private ProgressInterfaceToby getProgress() {
@@ -102,34 +102,37 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(numberOfButtons))));
 			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(numberOfButtons))));
 			final ButtonInterfaceToby b = buttons[i];
+			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
 			b.dim();
-			buttons[i].setAction(new Action(){
-				public void act(){
-
-					Thread blink = new Thread(new Runnable(){
-						public void run(){
-							b.highlight();
-							try {
-								Thread.sleep(500);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
+			buttons[i].setAction(new Action() {
+				
+				public void act() {
+						Thread buttonPress = new Thread(new Runnable() {
+							
+							public void run() {
+								b.highlight();
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								b.dim();
 							}
-							b.dim();
-						}
-					});
-					blink.start();
+						});
+						buttonPress.start();
 
-					if(b == sequence.get(sequenceIndex).getButton()){
-						sequenceIndex++;
-					}else{
-						gameOver();
-						return;
+						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
+							sequenceIndex++;
+						}else if(acceptingInput){
+							gameOver();
+							return;
+						}
+						if(sequenceIndex == sequence.size()){
+							Thread nextRound = new Thread(SimonScreenToby.this);
+							nextRound.start();
+						}
 					}
-					if(sequenceIndex == sequence.size()){
-						Thread nextRound = new Thread(SimonScreenToby.this);
-						nextRound.start();
-					}
-				}
+
 			});
 			viewObjects.add(buttons[i]);
 		}

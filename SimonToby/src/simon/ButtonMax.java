@@ -16,62 +16,42 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 	
 	public ButtonMax() {
 		super(0, 0, WIDTH, HEIGHT);
-		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void act() {
-		// TODO Auto-generated method stub
 		action.act();
 	}
-
-	@Override
+	
 	public boolean isHovered(int x, int y) {
-		// TODO Auto-generated method stub
 		double dX = x - (getX() + (WIDTH / 2));
 		double dY = y - (getY() + (HEIGHT / 2));
 		double distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2) );
 		return (distance < (WIDTH / 2));
 	}
 
-	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
 		this.c = color;
 		displayColor = c;
 		update();
 	}
 
-	@Override
-	public void setAction(Action a) {
-		// TODO Auto-generated method stub
+	public void setAction(Action action) {
 		this.action = action;
 	}
 
-	@Override
 	public void highlight() {
-		// TODO Auto-generated method stub
-		if (c != null) {
-			displayColor = c;
-		}
+		if(c != null)displayColor = c;
 		highlight = true;
-		
 		update();
 	}
 
-	@Override
 	public void dim() {
-		// TODO Auto-generated method stub
 		displayColor = Color.gray;
 		highlight = false;
-		
 		update();
 	}
 
-	@Override
-	public void update(Graphics2D g
-			) {
-		// TODO Auto-generated method stub
+	public void update(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if(displayColor != null) g.setColor(displayColor);
 		else g.setColor(Color.gray);
@@ -92,6 +72,6 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 			p.addPoint(s+8, t+3);
 			g.fill(p);
 		}
-	}
+	}	
 
 }
