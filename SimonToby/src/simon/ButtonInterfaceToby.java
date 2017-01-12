@@ -6,7 +6,6 @@ import guiPractice.components.Action;
 import guiPractice.components.Clickable;
 
 public interface ButtonInterfaceToby extends Clickable {
-	
 	void setColor(Color color);
 	void setAction(Action action);
 	void highlight();
