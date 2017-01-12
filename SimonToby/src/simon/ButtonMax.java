@@ -38,6 +38,7 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 
 	public void setAction(Action action) {
 		this.action = action;
+		update();
 	}
 
 	public void highlight() {
