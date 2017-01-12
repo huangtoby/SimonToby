@@ -13,6 +13,7 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 	private Color c;
 	private Color displayColor;
 	private boolean highlight;
+	private String name;
 	
 	public ButtonMax() {
 		super(0, 0, WIDTH, HEIGHT);
@@ -72,6 +73,14 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 			p.addPoint(s+8, t+3);
 			g.fill(p);
 		}
-	}	
+	}
+
+	public void setName(String s){
+		this.name = s;
+	}
+	
+	public String toString(){
+		return name;
+	}
 
 }

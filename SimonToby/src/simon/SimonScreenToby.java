@@ -26,6 +26,21 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		Thread app = new Thread(this);
 		app.start();
 	}
+	
+	public void initAllObjects(List<Visible> viewObjects) {
+		addButtons(viewObjects);
+		progress = getProgress();
+		label = new TextLabel(130,230,300,40,"Play Simon");
+		sequence = new ArrayList<MoveInterfaceToby>();
+		
+		lastSelectedButton = -1;
+		sequence.add(randomMove());
+		sequence.add(randomMove());
+		roundNumber = 0;
+
+		viewObjects.add(progress);
+		viewObjects.add(label);
+	}
 
 	public void run() {
 		changeText("");
@@ -62,21 +77,6 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		b.dim();
 	}
 
-	public void initAllObjects(List<Visible> viewObjects) {
-		addButtons(viewObjects);
-		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Play Simon");
-		sequence = new ArrayList<MoveInterfaceToby>();
-		
-		lastSelectedButton = -1;
-		sequence.add(randomMove());
-		sequence.add(randomMove());
-		roundNumber = 0;
-
-		viewObjects.add(progress);
-		viewObjects.add(label);
-	}
-
 	private MoveInterfaceToby randomMove() {
 		//code that randomly selects a ButtonInterface
 		int a = (int)(Math.random()*buttons.length);
@@ -88,63 +88,52 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		return new Move(buttons[a]);
 	}
 
-	private ProgressInterfaceToby getProgress() {
-		return new ProgressMax(); 
-	}
-
 	private void addButtons(List<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, Color.orange, Color.yellow, Color.green};
-		int numberOfButtons = 5;
+		Color[] colors = {Color.red, Color.blue, Color.orange, Color.green, Color.yellow, Color.cyan};
+		String[] names = {"red", "blue", "orange", "green", "yellow", "cyan"};
+		int numberOfButtons = 6;
 		buttons = new ButtonInterfaceToby[numberOfButtons];
-		for(int i = 0; i < numberOfButtons; i++ ){
+		for(int i = 0; i <numberOfButtons; i++ ){
 			buttons[i] = getAButton();
+			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
-			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(numberOfButtons))));
-			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(numberOfButtons))));
+			buttons[i].setX(90 + (int)(75*(i)));
+			buttons[i].setY(175);
 			final ButtonInterfaceToby b = buttons[i];
 			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
 			b.dim();
 			buttons[i].setAction(new Action() {
 				
 				public void act() {
-						Thread buttonPress = new Thread(new Runnable() {
-							
-							public void run() {
-								b.highlight();
-								try {
-									Thread.sleep(500);
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
-								b.dim();
+					Thread buttonPress = new Thread(new Runnable() {
+						
+						public void run() {
+							b.highlight();
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
 							}
-						});
-						buttonPress.start();
-
-						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
-							sequenceIndex++;
-						}else if(acceptingInput){
-							gameOver();
-							return;
+							b.dim();
 						}
-						if(sequenceIndex == sequence.size()){
-							Thread nextRound = new Thread(SimonScreenToby.this);
-							nextRound.start();
-						}
+					});
+					
+					buttonPress.start();
+					if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
+						sequenceIndex++;
+					}else if(acceptingInput){
+						gameOver();
+						return;
 					}
-
+					if(sequenceIndex == sequence.size()){
+						Thread nextRound = new Thread(SimonScreenToby.this);
+						nextRound.start();
+					}
+				}
 			});
 			viewObjects.add(buttons[i]);
 		}
 	}	
-
-	private ButtonInterfaceToby getAButton() {
-		return new ButtonMax();
-	}
-
-	private void gameOver() {
-		progress.gameOver();
-	}
 
 	private void changeText(String string) {
 		try{
@@ -153,6 +142,18 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	private void gameOver() {
+		progress.gameOver();
+	}
+	
+	private ProgressInterfaceToby getProgress() {
+		return new ProgressMax(); 
+	}
+	
+	private ButtonInterfaceToby getAButton() {
+		return new ButtonMax();
 	}
 
 }
