@@ -105,8 +105,8 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			buttons[i].setAction(new Action() {
 				
 				public void act() {
+					System.out.println("I was clicked");
 					Thread buttonPress = new Thread(new Runnable() {
-						
 						public void run() {
 							b.highlight();
 							try {
