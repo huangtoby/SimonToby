@@ -22,6 +22,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 
 	public SimonScreenToby(int width, int height) {
 		super(width, height);
+		System.out.print("Screen created");
 		Thread app = new Thread(this);
 		app.start();
 	}
@@ -104,29 +105,30 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 			buttons[i].setAction(new Action() {
 				
 				public void act() {
-					System.out.println("I was clicked");
-					Thread buttonPress = new Thread(new Runnable() {
-						public void run() {
-							b.highlight();
-							try {
-								Thread.sleep(500);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
+					if(acceptingInput){
+						Thread buttonPress = new Thread(new Runnable() {
+							public void run() {
+								b.highlight();
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								b.dim();
 							}
-							b.dim();
-						}
-					});
+						});
 					
-					buttonPress.start();
-					if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
-						sequenceIndex++;
-					}else if(acceptingInput){
-						gameOver();
-						return;
-					}
-					if(sequenceIndex == sequence.size()){
-						Thread nextRound = new Thread(SimonScreenToby.this);
-						nextRound.start();
+						buttonPress.start();
+						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
+							sequenceIndex++;
+						}else if(acceptingInput){
+							gameOver();
+							return;
+						}
+						if(sequenceIndex == sequence.size()){
+							Thread nextRound = new Thread(SimonScreenToby.this);
+							nextRound.start();
+						}
 					}
 				}
 			});
