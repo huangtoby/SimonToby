@@ -24,6 +24,7 @@ public class ButtonMax extends Component implements ButtonInterfaceToby {
 	}
 	
 	public boolean isHovered(int x, int y) {
+		System.out.println("isHovered called");
 		double dX = x - (getX() + (WIDTH / 2));
 		double dY = y - (getY() + (HEIGHT / 2));
 		double distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2) );

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guiPractice.components.Action;
-import guiPractice.components.ClickableScreen;
 import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;
 
@@ -131,7 +130,7 @@ public class SimonScreenToby extends ClickableScreen implements Runnable {
 					}
 				}
 			});
-			viewObjects.add(buttons[i]);
+			addObject(buttons[i]);
 		}
 	}	
 
